@@ -51,5 +51,6 @@ int	take_map(char *name, t_all *cub);
 //functions for free allocate memmory
 
 void	free_content(void *cont);
+void	free_all(t_all *all);
 
 #endif
