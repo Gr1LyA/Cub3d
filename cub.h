@@ -33,6 +33,12 @@ typedef struct	s_win //структура для окна
 	int			line_l;
 	int			bpp;
 	int			en;
+	char		*north;
+	char		*south;
+	char		*west;
+	char		*east;
+	uint32_t	floor[3];
+	uint32_t	ceiling[3];
 }				  t_win;
 
 typedef struct	s_point // структура для точки

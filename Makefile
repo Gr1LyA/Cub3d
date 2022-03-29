@@ -13,17 +13,17 @@ SRCS =	$(addprefix gnl/, $(GNL)) \
 OBJS = ${SRCS:.c=.o}
 CC = gcc -g#-fsanitize=address
 
+$(NAME): $(OBJS) cub.h Makefile
+		make bonus -C ./libft
+		make -C ./libft
+		make -C ./mlx
+		$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -L ./libft -lft -o $(NAME)
+
 # $(NAME): $(OBJS) cub.h Makefile
 # 		make bonus -C ./libft
 # 		make -C ./libft
 # 		make -C ./mlx
-# 		$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -L ./libft -lft -o $(NAME)
-
-$(NAME): $(OBJS) cub.h Makefile
-		make bonus -C ./libft
-		make -C ./libft
-		make -C ./minilibx-linux
-		$(CC) $(OBJS) -L ./minilibx-linux -lmlx -lXext -lX11 -lm -L ./libft -lft -o $(NAME)
+# 		$(CC) $(OBJS) -L ./mlx -lmlx -lXext -lX11 -lm -L ./libft -lft -o $(NAME)
 
 all:	$(NAME)
 
@@ -34,7 +34,7 @@ clean:
 fclean:	clean
 		rm -rf $(NAME)
 		make fclean -C ./libft
-		make clean -C ./minilibx-linux
+		make clean -C ./mlx
 
 re:	fclean re all clean
 
