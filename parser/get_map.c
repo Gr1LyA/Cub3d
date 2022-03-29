@@ -16,9 +16,9 @@ static void	map_to_mass(t_list *head, t_all *cub, int size)
 		if (!cub->map[i])
 			exit (EXIT_FAILURE);
 		tmp = tmp->next;
-		// printf("%s\n", cub->map[i]);
 	}
 	ft_lstclear(&head, free_content);
+	check_map(cub);
 }
 
 void	take_map(char *name, t_all *cub)
@@ -38,6 +38,7 @@ void	take_map(char *name, t_all *cub)
 	}
 	if (!line)
 			exit (EXIT_FAILURE);
+	close (fd);
 	ft_lstadd_back(&head, ft_lstnew(line));
 	return (map_to_mass(head, cub, ft_lstsize(head)));
 }

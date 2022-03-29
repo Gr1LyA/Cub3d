@@ -1,5 +1,5 @@
 NAME = cub
-PARSER = get_map.c
+PARSER = get_map.c check_map.c
 CLEAN = clean.c
 ERROR = error.c
 WINDOW = window.c

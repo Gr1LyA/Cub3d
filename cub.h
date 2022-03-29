@@ -66,6 +66,7 @@ typedef struct	s_all // структура для всего вместе
 //function for get map
 
 void	take_map(char *name, t_all *cub);
+void	check_map(t_all *cub);
 
 //functions for free allocate memmory
 
