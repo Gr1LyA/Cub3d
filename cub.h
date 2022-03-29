@@ -1,6 +1,7 @@
 #ifndef CUB_H
 # define CUB_H
 
+#include <sys/types.h>
 # define SCALE 16 // условный размер каждого квадратика в карте
 # define WIDTH 500
 # define HEIGHT 500
@@ -22,7 +23,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <errno.h>
-# include "mlx/mlx.h"
+# include "minilibx-linux/mlx.h"
 
 typedef struct	s_win //структура для окна
 {
@@ -37,8 +38,8 @@ typedef struct	s_win //структура для окна
 	char		*south;
 	char		*west;
 	char		*east;
-	uint32_t	floor[3];
-	uint32_t	ceiling[3];
+	u_int32_t	floor[3];//возможно цвета лучше перевести в int сразу
+	u_int32_t	ceiling[3];
 }				  t_win;
 
 typedef struct	s_point // структура для точки
