@@ -22,7 +22,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <errno.h>
-# include "minilibx-linux/mlx.h"
+# include "mlx/mlx.h"
 
 typedef struct	s_win //структура для окна
 {
