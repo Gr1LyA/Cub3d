@@ -1,5 +1,4 @@
 #include "../cub.h"
-#include <stddef.h>
 
 static void	sixteen(unsigned long num);
 
@@ -24,7 +23,7 @@ u_int32_t	convert_to_decimal(char **splt)
 	color = 0;
 	i = -1;
 	while (hex[++i])
-		color += ((u_int32_t)(ft_findchr(base, hex[i])) * exponentiation(16, --len));
+		color += ((u_int32_t)(ft_findchr(base, hex[i])) * pow(16, --len));
 	free(hex);
 	// printf("color = %d\n", color);
 	return (color);

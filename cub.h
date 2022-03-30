@@ -1,7 +1,6 @@
 #ifndef CUB_H
 # define CUB_H
 
-#include <sys/types.h>
 # define SCALE 16 // условный размер каждого квадратика в карте
 # define WIDTH 500
 # define HEIGHT 500
@@ -16,7 +15,7 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-# include "./gnl/get_next_line.h"
+# include "./gnl/get_next_line_bonus.h"
 # include "./libft/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
@@ -24,6 +23,9 @@
 # include <stdio.h>
 # include <errno.h>
 # include "minilibx-linux/mlx.h"
+# include <sys/types.h>
+# include <math.h>
+# include <stddef.h>
 
 typedef struct	s_win //структура для окна
 {
@@ -31,10 +33,10 @@ typedef struct	s_win //структура для окна
 	void		*win;
 	void		*img;
 	void		*addr;
-	int			line_l;
+	int			len;
 	int			bpp;
-	int			en;
-	char		*north;
+	int			endian;
+	char		*north;//добавить проверку на открытие текстур
 	char		*south;
 	char		*west;
 	char		*east;
@@ -69,7 +71,6 @@ typedef struct	s_all // структура для всего вместе
 void		take_map(char *name, t_all *cub);
 void		color(char *str, u_int32_t *color);
 u_int32_t	convert_to_decimal(char **splt);
-u_int32_t	exponentiation(u_int32_t num, size_t stepen);
 
 //functions for free allocate memmory
 
@@ -83,5 +84,10 @@ void	init_window(t_all *cub);
 //func for message about errors
 
 int		error_mess(char *error);
+
+//func for render img
+
+void	my_mlx_pixel_put(t_all cub, int x, int y, int color);
+int		image_cub(t_all *cub);
 
 #endif

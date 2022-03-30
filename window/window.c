@@ -18,9 +18,8 @@ void	init_window(t_all *cub)
 {
 	cub->win->mlx = mlx_init();
 	cub->win->win = mlx_new_window(cub->win->mlx, WIDTH, HEIGHT, "Cub");
-	// mlx_hook(cub->win->win, 0, 0, key_hook, cub);
 	mlx_key_hook(cub->win->win, key_hook, cub);
 	mlx_hook(cub->win->win, 17, 0, close_win, NULL);
-	// mlx_loop_hook(cub->win->mlx, get_image, vars);
+	mlx_loop_hook(cub->win->mlx, image_cub, cub);
 	mlx_loop(cub->win->mlx);
 }

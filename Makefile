@@ -1,9 +1,9 @@
 NAME = cub3D
-PARSER = get_map.c color.c rgb_to_int.c tools.c
+PARSER = get_map.c color.c rgb_to_int.c
 CLEAN = clean.c
 ERROR = error.c
-WINDOW = window.c
-GNL = get_next_line.c get_next_line_utils.c
+WINDOW = window.c render_img.c pixel_put.c
+GNL = get_next_line_bonus.c get_next_line_utils_bonus.c
 SRCS =	$(addprefix gnl/, $(GNL)) \
 		$(addprefix window/, $(WINDOW)) \
 		$(addprefix error/, $(ERROR)) \

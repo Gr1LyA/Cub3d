@@ -1,6 +1,4 @@
 #include "../cub.h"
-#include <stddef.h>
-#include <sys/types.h>
 
 void	color(char *str, u_int32_t *color)
 {

@@ -5,7 +5,7 @@ static void	init(t_all *cub)
 	cub->win = malloc(sizeof(t_win));
 	cub->plr = malloc(sizeof(t_plr));
 	if (!cub->win || !cub->plr)
-		exit (0);
+		exit (error_mess("error malloc"));
 	cub->win->north = NULL;
 	cub->win->south = NULL;
 	cub->win->west = NULL;
@@ -27,8 +27,8 @@ int	main(int ac, char **av)
 		exit (error_mess("arg"));
 	init(&cub);
 	take_map(av[1], &cub);
-	// check_print(cub);
-	// init_window(&cub);
+	check_print(cub);
+	init_window(&cub);
 	free_all(&cub);
 	return (0);
 }
