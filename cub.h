@@ -40,7 +40,7 @@ typedef struct	s_win //структура для окна
 	char		*south;
 	char		*west;
 	char		*east;
-	u_int32_t	floor;
+	u_int32_t	floor;//добавить проверку <255 && >0
 	u_int32_t	ceiling;
 }				  t_win;
 
@@ -63,7 +63,7 @@ typedef struct	s_all // структура для всего вместе
 {
 	t_win		*win;
 	t_plr		*plr;
-	char		**map;
+	char		**map;//сделать проверку на валидность
 }				  t_all;
 
 //function for get map
@@ -87,7 +87,11 @@ int		error_mess(char *error);
 
 //func for render img
 
-void	my_mlx_pixel_put(t_all cub, int x, int y, int color);
+void	my_mlx_pixel_put(t_all *cub, int x, int y, int color);
 int		image_cub(t_all *cub);
+
+//supporting func
+
+int		ft_findchr(char *str, char ch);
 
 #endif

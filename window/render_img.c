@@ -11,6 +11,7 @@ int	image_cub(t_all *cub)
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len, &img->endian);
 	render_cub(cub);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, img->img, 0, 0);
+	free(img->img);
 	return (0);
 }
 
@@ -25,7 +26,7 @@ static void	render_cub(t_all *cub)
 		x = 100;
 		while (x < 200)
 		{
-			my_mlx_pixel_put(*cub, x, y, 0xffffff);
+			my_mlx_pixel_put(cub, x, y, 0xffffff);
 			x++;
 		}
 		y++;

@@ -4,8 +4,6 @@ static void	sixteen(unsigned long num);
 
 static char	*convert_to_hex(char **splt);
 
-static int	ft_findchr(char *str, char ch);
-
 u_int32_t	convert_to_decimal(char **splt)
 {
 	char		*hex;
@@ -27,16 +25,6 @@ u_int32_t	convert_to_decimal(char **splt)
 	free(hex);
 	// printf("color = %d\n", color);
 	return (color);
-}
-
-static int	ft_findchr(char *str, char ch)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != ch)
-		i++;
-	return (i);
 }
 
 static char	*convert_to_hex(char **splt)

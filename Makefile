@@ -3,15 +3,17 @@ PARSER = get_map.c color.c rgb_to_int.c
 CLEAN = clean.c
 ERROR = error.c
 WINDOW = window.c render_img.c pixel_put.c
+TOOLS = tools.c
 GNL = get_next_line_bonus.c get_next_line_utils_bonus.c
 SRCS =	$(addprefix gnl/, $(GNL)) \
+		$(addprefix tools/, $(TOOLS)) \
 		$(addprefix window/, $(WINDOW)) \
 		$(addprefix error/, $(ERROR)) \
 		$(addprefix parser/, $(PARSER)) \
 		$(addprefix clean/, $(CLEAN)) \
 		main.c 
 OBJS = ${SRCS:.c=.o}
-CC = gcc -fsanitize=address
+CC = gcc -g #-fsanitize=address
 
 # $(NAME): $(OBJS) cub.h Makefile
 # 		make bonus -C ./libft
