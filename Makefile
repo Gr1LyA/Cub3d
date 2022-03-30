@@ -1,5 +1,5 @@
 NAME = cub3D
-PARSER = get_map.c
+PARSER = get_map.c color.c rgb_to_int.c tools.c
 CLEAN = clean.c
 ERROR = error.c
 WINDOW = window.c
@@ -11,7 +11,7 @@ SRCS =	$(addprefix gnl/, $(GNL)) \
 		$(addprefix clean/, $(CLEAN)) \
 		main.c 
 OBJS = ${SRCS:.c=.o}
-CC = gcc -g#-fsanitize=address
+CC = gcc -fsanitize=address
 
 # $(NAME): $(OBJS) cub.h Makefile
 # 		make bonus -C ./libft
@@ -29,7 +29,7 @@ all:	$(NAME)
 
 clean:
 		make clean -C ./libft
-		rm -rf $(OBJS)
+		rm -rf $(OBJS) ./parser/hex.txt
 
 fclean:	clean
 		rm -rf $(NAME)

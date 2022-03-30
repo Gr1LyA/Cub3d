@@ -38,8 +38,8 @@ typedef struct	s_win //структура для окна
 	char		*south;
 	char		*west;
 	char		*east;
-	u_int32_t	floor[3];//возможно цвета лучше перевести в int сразу
-	u_int32_t	ceiling[3];
+	u_int32_t	floor;
+	u_int32_t	ceiling;
 }				  t_win;
 
 typedef struct	s_point // структура для точки
@@ -66,8 +66,10 @@ typedef struct	s_all // структура для всего вместе
 
 //function for get map
 
-void	take_map(char *name, t_all *cub);
-void	check_map(t_all *cub);
+void		take_map(char *name, t_all *cub);
+void		color(char *str, u_int32_t *color);
+u_int32_t	convert_to_decimal(char **splt);
+u_int32_t	exponentiation(u_int32_t num, size_t stepen);
 
 //functions for free allocate memmory
 

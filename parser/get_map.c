@@ -23,13 +23,16 @@ static void	compare(char *str, t_all *cub, int flag[2])
 	else if (!ft_strncmp("EA ", str, 3))
 		return (sub_compare(str + 2, &(cub->win->east)));
 	//далее условия для цвета пола и потолка
-	// if (!ft_strncmp("F  ", str, 2))
-	// 	flag[0]++;
-	// else if (!ft_strncmp("C  ", str, 2))
-	// 	flag[1]++;
-	// str++;
-	// while (*str >= 9 && *str <= 13 || *str == ' ')
-	// 	str++;
+	if (!ft_strncmp("F  ", str, 2))
+	{
+		color(str + 1, &(cub->win->floor));
+		flag[0]++;
+	}
+	else if (!ft_strncmp("C  ", str, 2))
+	{
+		color(str + 1, &(cub->win->ceiling));
+		flag[1]++;
+	}
 	// color = ft_split(str, ',');//возможно цвета лучше перевести в int сразу
 }
 
@@ -49,6 +52,8 @@ static void	get_texture(t_list **head, t_all *cub)
 	if (cub->win->north == NULL || cub->win->south == NULL
 		|| cub->win->west == NULL || cub->win->east == NULL)
 		exit (error_mess("map_error"));
+	if (flag[0] != 1 || flag[1] != 1)
+		exit (error_mess("map_error"));
 }
 
 static void	map_to_mass(t_list *head, t_all *cub, int size)
@@ -61,9 +66,9 @@ static void	map_to_mass(t_list *head, t_all *cub, int size)
 	tmp = head;
 
 	get_texture(&tmp, cub);//получаю пути к текстурам и цветам
-	printf("no = '%s'\nso = '%s'\nwe = '%s'\nea = '%s'\n", cub->win->north, cub->win->south, cub->win->west, cub->win->east);
+	// printf("no = '%s'\nso = '%s'\nwe = '%s'\nea = '%s'\n", cub->win->north, cub->win->south, cub->win->west, cub->win->east);
 	
-	printf("\nsize = %d\n\n", size);
+	// printf("\nsize = %d\n\n", size);
 	cub->map = ft_calloc(size + 1, sizeof(char *));
 	if (!cub->map)
 		exit (EXIT_FAILURE);
@@ -73,7 +78,7 @@ static void	map_to_mass(t_list *head, t_all *cub, int size)
 		cub->map[i] = ft_strdup(tmp->content);
 		if (!cub->map[i])
 			exit (EXIT_FAILURE);
-		printf("%s\n", cub->map[i]);
+		// printf("%s\n", cub->map[i]);
 		tmp = tmp->next;
 	}
 	ft_lstclear(&head, free_content);
