@@ -17,8 +17,8 @@ void	x_y_plr(t_all *cub)
 			s = cub->map[i][j];
 			if (s == 'N' || s == 'W' || s == 'E' || s == 'S')
 			{
-				cub->plr->y = (float)i;
-				cub->plr->x = (float)j;
+				cub->plr->y = (float)i * SCALE;
+				cub->plr->x = (float)j * SCALE;
 				flag++;
 			}
 		}

@@ -1,6 +1,4 @@
 #include "../cub.h"
-#include <stddef.h>
-#include <sys/types.h>
 
 static void	render_cub(t_all *cub);
 
@@ -8,30 +6,9 @@ static void	paint_black(t_all *cub);
 
 int	image_cub(t_all *cub)
 {
-	// t_win	*img;
-
-	// img = cub->win;
-	// img->img = mlx_new_image(cub->win->mlx, WIDTH, HEIGHT);
-	// img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len, &img->endian);
-	paint_black(cub);
 	render_cub(cub);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img, 0, 0);
-	// free(img->img);
 	return (0);
-}
-
-static void	paint_black(t_all *cub)
-{
-	size_t	x;
-	size_t	y;
-
-	y = -1;
-	while (++y < HEIGHT)
-	{
-		x = -1;
-		while (++x < WIDTH)
-		my_mlx_pixel_put(cub, x, y, 0x000000);
-	}
 }
 
 static void	print_square(size_t x, size_t y, t_all *cub, u_int32_t color)
@@ -60,7 +37,6 @@ static void	render_cub(t_all *cub)
 	size_t	y;
 
 	i = 0;
-	// printf("\n\n ALLOOOOO \n\n");
 	y = 0;
 	while (cub->map[i])
 	{
@@ -70,29 +46,13 @@ static void	render_cub(t_all *cub)
 		{
 			if (cub->map[i][j] == '1')
 				print_square(x, y, cub, 0xffffff);//отрисовываю карту
+			else
+				print_square(x, y, cub, 0x000000);
 			j++;
 			x += SCALE;
 		}
 		y += SCALE;
 		i++;
 	}
-	print_square(cub->plr->x * SCALE, cub->plr->y * SCALE, cub, 0x000fff);//отрисовываю персонажа
+	print_square(cub->plr->x, cub->plr->y, cub, 0x000fff);//отрисовываю персонажа
 }
-
-// static void	render_cub(t_all *cub)
-// {
-// 	// int x;
-// 	// int y;
-
-// 	// y = 100;
-// 	// while (y < 200)
-// 	// {
-// 	// 	x = 100;
-// 	// 	while (x < 200)
-// 	// 	{
-// 	// 		my_mlx_pixel_put(cub, x, y, 0xffffff);
-// 	// 		x++;
-// 	// 	}
-// 	// 	y++;
-// 	// }
-// }
