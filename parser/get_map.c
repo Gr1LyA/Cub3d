@@ -60,6 +60,7 @@ static void	map_to_mass(t_list *head, t_all *cub, int size)
 {
 	t_list	*tmp;
 	int		i;
+	size_t	m;
 
 	if (size <= 0)
 		exit (error_mess("map"));
@@ -76,12 +77,14 @@ static void	map_to_mass(t_list *head, t_all *cub, int size)
 	while (++i < size)
 	{		
 		cub->map[i] = ft_strdup(tmp->content);
+		// m = ft_findchr(cub->map[i], '')
 		if (!cub->map[i])
 			exit (EXIT_FAILURE);
 		// printf("%s\n", cub->map[i]);
 		tmp = tmp->next;
 	}
 	ft_lstclear(&head, free_content);
+	x_y_plr(cub);
 }
 
 void	take_map(char *name, t_all *cub)

@@ -1,5 +1,5 @@
 NAME = cub3D
-PARSER = get_map.c color.c rgb_to_int.c
+PARSER = get_map.c color.c rgb_to_int.c x_y.c
 CLEAN = clean.c
 ERROR = error.c
 WINDOW = window.c render_img.c pixel_put.c
@@ -13,7 +13,7 @@ SRCS =	$(addprefix gnl/, $(GNL)) \
 		$(addprefix clean/, $(CLEAN)) \
 		main.c 
 OBJS = ${SRCS:.c=.o}
-CC = gcc -g #-fsanitize=address
+CC = gcc -g -O3#-fsanitize=address
 
 # $(NAME): $(OBJS) cub.h Makefile
 # 		make bonus -C ./libft
@@ -25,7 +25,7 @@ $(NAME): $(OBJS) cub.h Makefile
 		make bonus -C ./libft
 		make -C ./libft
 		make -C ./minilibx-linux
-		$(CC) $(OBJS) -L ./minilibx-linux -lmlx -lXext -lX11 -lm -L ./libft -lft -o $(NAME)
+		$(CC) $(OBJS) -I cub.h -L ./minilibx-linux -lmlx -lXext -lX11 -lm -L ./libft -lft -o $(NAME)
 
 all:	$(NAME)
 

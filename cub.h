@@ -1,7 +1,7 @@
 #ifndef CUB_H
 # define CUB_H
 
-# define SCALE 16 // условный размер каждого квадратика в карте
+# define SCALE 20 // условный размер каждого квадратика в карте
 # define WIDTH 500
 # define HEIGHT 500
 
@@ -71,6 +71,7 @@ typedef struct	s_all // структура для всего вместе
 void		take_map(char *name, t_all *cub);
 void		color(char *str, u_int32_t *color);
 u_int32_t	convert_to_decimal(char **splt);
+void		x_y_plr(t_all *cub);
 
 //functions for free allocate memmory
 
