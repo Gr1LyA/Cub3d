@@ -91,6 +91,11 @@ int		error_mess(char *error);
 void	my_mlx_pixel_put(t_all *cub, int x, int y, int color);
 int		image_cub(t_all *cub);
 
+//func for keyhook
+
+int	close_win(int key);
+int	key_hook(int key, t_all *cub);
+
 //supporting func
 
 int		ft_findchr(char *str, char ch);

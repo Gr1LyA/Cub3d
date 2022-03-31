@@ -4,17 +4,34 @@
 
 static void	render_cub(t_all *cub);
 
+static void	paint_black(t_all *cub);
+
 int	image_cub(t_all *cub)
 {
-	t_win	*img;
+	// t_win	*img;
 
-	img = cub->win;
-	img->img = mlx_new_image(cub->win->mlx, WIDTH, HEIGHT);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len, &img->endian);
+	// img = cub->win;
+	// img->img = mlx_new_image(cub->win->mlx, WIDTH, HEIGHT);
+	// img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->len, &img->endian);
+	paint_black(cub);
 	render_cub(cub);
-	mlx_put_image_to_window(cub->win->mlx, cub->win->win, img->img, 0, 0);
-	free(img->img);
+	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img, 0, 0);
+	// free(img->img);
 	return (0);
+}
+
+static void	paint_black(t_all *cub)
+{
+	size_t	x;
+	size_t	y;
+
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+		my_mlx_pixel_put(cub, x, y, 0x000000);
+	}
 }
 
 static void	print_square(size_t x, size_t y, t_all *cub, u_int32_t color)
