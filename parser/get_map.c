@@ -2,7 +2,7 @@
 
 static void sub_compare(char *str, char**dest)
 {
-	while (*str >= 9 && *str <= 13 || *str == ' ')
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
 		str++;
 	*dest = ft_strdup(str);
 		// printf("dest = '%s'\n", *dest);

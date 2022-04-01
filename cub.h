@@ -1,10 +1,11 @@
 #ifndef CUB_H
 # define CUB_H
 
-# define SCALE 20 // условный размер каждого квадратика в карте
-# define STEP 20
 # define WIDTH 500
 # define HEIGHT 500
+
+# define SCALE 20 // условный размер каждого квадратика в карте
+# define STEP 10
 
 # define ESC 53//65307
 # define W 13//119

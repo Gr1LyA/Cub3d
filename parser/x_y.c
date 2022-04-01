@@ -33,13 +33,13 @@ void	x_y_plr(t_all *cub)
 static void plr_ray(char s, t_all *cub)
 {
 	if (s == 'N')
-		cub->plr->dir = M_PI_2;
-	else if (s == 'S')
 		cub->plr->dir = - M_PI_2;
+	else if (s == 'S')
+		cub->plr->dir = + M_PI_2;
 	else if (s == 'W')
-		cub->plr->dir = M_PI;
-	else if (s == 'E')
 		cub->plr->dir = 0;
-	cub->plr->start = cub->plr->dir - M_PI_4;
-	cub->plr->end = cub->plr->dir + M_PI_4;
+	else if (s == 'E')
+		cub->plr->dir = M_PI;
+	// cub->plr->start = cub->plr->dir - M_PI_4;
+	// cub->plr->end = cub->plr->dir + M_PI_4;
 }

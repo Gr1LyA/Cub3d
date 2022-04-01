@@ -6,7 +6,7 @@ void	color(char *str, u_int32_t *color)
 	char		**splt;
 	size_t		i;
 
-	while (*str >= 9 && *str <= 13 || *str == ' ')
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
 		str++;
 	splt = ft_split(str, ',');
 	if (!splt)
