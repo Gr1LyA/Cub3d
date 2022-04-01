@@ -1,8 +1,8 @@
 #ifndef CUB_H
 # define CUB_H
 
-# define SCALE 30 // условный размер каждого квадратика в карте
-# define STEP 30
+# define SCALE 20 // условный размер каждого квадратика в карте
+# define STEP 20
 # define WIDTH 500
 # define HEIGHT 500
 
@@ -55,9 +55,9 @@ typedef struct	s_plr //структура для игрока и луча
 {
 	float		x;
 	float		y;
-	float		dir;
-	float		start;
-	float		end;
+	float		dir;//середина обзора
+	float		start;//левая сторона обзора
+	float		end;//правая сторона обзора
 }				  t_plr;
 
 typedef struct	s_all // структура для всего вместе
