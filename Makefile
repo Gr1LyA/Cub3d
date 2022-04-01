@@ -18,7 +18,7 @@ CC = gcc -g -O3#-fsanitize=address
 $(NAME): $(OBJS) cub.h Makefile
 		make bonus -C ./libft
 		make -C ./libft
-		make -C ./mlx
+		@make -C ./mlx
 		$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -L ./libft -lft -o $(NAME)
 
 # $(NAME): $(OBJS) cub.h Makefile
