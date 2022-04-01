@@ -5,11 +5,17 @@ void	free_content(void *cont)
 	free(cont);
 }
 
-static void	free_map(t_all *all);
+static void	free_map(t_all *cub);
 
-void	free_all(t_all *all)
+void	free_all(t_all *cub)
 {
-	free_map(all);
+	free_map(cub);
+	free(cub->win->north);
+	free(cub->win->south);
+	free(cub->win->west);
+	free(cub->win->east);
+	free(cub->win);
+	free(cub->plr);
 }
 
 static void	free_map(t_all *cub)

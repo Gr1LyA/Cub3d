@@ -1,28 +1,31 @@
 #ifndef CUB_H
 # define CUB_H
 
-# define SCALE 16 // условный размер каждого квадратика в карте
+# define SCALE 20 // условный размер каждого квадратика в карте
 # define WIDTH 500
 # define HEIGHT 500
 
-# define ESC 65307
-# define W 119
-# define A 97
-# define S 115
-# define D 100
-# define UP 65362
-# define DOWN 65364
-# define LEFT 65361
-# define RIGHT 65363
+# define ESC 53//65307
+# define W 13//119
+# define A 0//97
+# define S 1//115
+# define D 2//100
+# define UP 126//65362
+# define DOWN 125//65364
+# define LEFT 123//65361
+# define RIGHT 124//65363
 
-# include "./gnl/get_next_line.h"
+# include "./gnl/get_next_line_bonus.h"
 # include "./libft/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <errno.h>
-# include "minilibx-linux/mlx.h"
+# include "mlx/mlx.h"
+# include <sys/types.h>
+# include <math.h>
+# include <stddef.h>
 
 typedef struct	s_win //структура для окна
 {
@@ -30,15 +33,15 @@ typedef struct	s_win //структура для окна
 	void		*win;
 	void		*img;
 	void		*addr;
-	int			line_l;
+	int			len;
 	int			bpp;
-	int			en;
-	char		*north;
+	int			endian;
+	char		*north;//добавить проверку на открытие текстур
 	char		*south;
 	char		*west;
 	char		*east;
-	uint32_t	floor[3];
-	uint32_t	ceiling[3];
+	u_int32_t	floor;//добавить проверку <255 && >0
+	u_int32_t	ceiling;
 }				  t_win;
 
 typedef struct	s_point // структура для точки
@@ -60,12 +63,17 @@ typedef struct	s_all // структура для всего вместе
 {
 	t_win		*win;
 	t_plr		*plr;
-	char		**map;
+	char		**map;//сделать проверку на валидность
+	// size_t		map_x;
+	// size_t		map_y;
 }				  t_all;
 
 //function for get map
 
-void	take_map(char *name, t_all *cub);
+void		take_map(char *name, t_all *cub);
+void		color(char *str, u_int32_t *color);
+u_int32_t	convert_to_decimal(char **splt);
+void		x_y_plr(t_all *cub);
 
 //functions for free allocate memmory
 
@@ -79,5 +87,19 @@ void	init_window(t_all *cub);
 //func for message about errors
 
 int		error_mess(char *error);
+
+//func for render img
+
+void	my_mlx_pixel_put(t_all *cub, int x, int y, int color);
+int		image_cub(t_all *cub);
+
+//func for keyhook
+
+int	close_win(int key);
+int	key_hook(int key, t_all *cub);
+
+//supporting func
+
+int		ft_findchr(char *str, char ch);
 
 #endif
