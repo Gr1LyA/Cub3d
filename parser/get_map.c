@@ -85,6 +85,8 @@ static void	map_to_mass(t_list *head, t_all *cub, int size)
 	}
 	ft_lstclear(&head, free_content);
 	x_y_plr(cub);
+	// cub->map_y = size * SCALE;
+	// cub->map_x = ft_strlen(cub->map[0]) * SCALE;
 }
 
 void	take_map(char *name, t_all *cub)

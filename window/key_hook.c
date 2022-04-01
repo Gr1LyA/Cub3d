@@ -16,13 +16,25 @@ int	key_hook(int key, t_all *cub)
 static void key_plr(int key, t_all *cub)
 {
 	if (key == W)
-		cub->plr->y -= 10.;
+	{
+		if (cub->map[(int)floor((cub->plr->y - 10.) / SCALE)][(int)floor(cub->plr->x / SCALE)] != '1')
+			cub->plr->y -= 10.;
+	}
 	if (key == A)
-		cub->plr->x -= 10.;
+	{
+		if (cub->map[(int)floor((cub->plr->y) / SCALE)][(int)floor((cub->plr->x  - 10.)/ SCALE)] != '1')
+			cub->plr->x -= 10.;
+	}
 	if (key == S)
-		cub->plr->y += 10.;
+	{
+		if (cub->map[(int)floor((cub->plr->y + 10. + (float)SCALE / 2) / SCALE)][(int)floor(cub->plr->x / SCALE)] != '1')
+			cub->plr->y += 10.;
+	}
 	if (key == D)
-		cub->plr->x += 10.;
+	{
+		if (cub->map[(int)floor((cub->plr->y) / SCALE)][(int)floor((cub->plr->x  + 10. + (float)SCALE / 2)/ SCALE)] != '1')
+			cub->plr->x += 10.;
+	}
 }
 
 int	close_win(int key)

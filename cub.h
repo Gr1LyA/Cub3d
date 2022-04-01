@@ -64,6 +64,8 @@ typedef struct	s_all // структура для всего вместе
 	t_win		*win;
 	t_plr		*plr;
 	char		**map;//сделать проверку на валидность
+	// size_t		map_x;
+	// size_t		map_y;
 }				  t_all;
 
 //function for get map
