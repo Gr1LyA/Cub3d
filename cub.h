@@ -1,8 +1,8 @@
 #ifndef CUB_H
 # define CUB_H
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 1000
+# define HEIGHT 1000
 
 # define SCALE 20 // условный размер каждого квадратика в карте
 # define STEP 10
@@ -68,6 +68,7 @@ typedef struct	s_all // структура для всего вместе
 	char		**map;//сделать проверку на валидность
 	// size_t		map_x;
 	// size_t		map_y;
+	// float			len_ray[WIDTH];
 }				  t_all;
 
 //function for get map
@@ -94,6 +95,7 @@ int		error_mess(char *error);
 
 void	my_mlx_pixel_put(t_all *cub, int x, int y, int color);
 int		image_cub(t_all *cub);
+void	minimap(t_all *cub);
 
 //func for keyhook
 

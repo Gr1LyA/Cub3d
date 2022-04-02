@@ -2,13 +2,9 @@
 
 static void	render_cub(t_all *cub);
 
-static void	print_square(size_t x, size_t y, t_all *cub, u_int32_t color);
+static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray);
 
-// static void	print_ray(t_all *cub);
-
-static void	ft_cast_rays(t_all *cub);
-
-// static void	print_line(size_t x, size_t y, t_all *cub, u_int32_t color);
+static void print_floor_and_ceil(t_all *cub);
 
 int	image_cub(t_all *cub)
 {
@@ -17,58 +13,18 @@ int	image_cub(t_all *cub)
 	return (0);
 }
 
-static void	render_cub(t_all *cub)
-{
-	size_t	i;
-	size_t	j;
-	size_t	x;
-	size_t	y;
 
-	i = 0;
-	y = 0;
-	while (cub->map[i])
-	{
-		j = 0;
-		x = 0;
-		while (cub->map[i][j])
-		{
-			if (cub->map[i][j] == '1')
-				print_square(x, y, cub, 0xffffff);//отрисовываю карту
-			else
-				print_square(x, y, cub, 0x000000);
-			j++;
-			x += SCALE;
-		}
-		y += SCALE;
-		i++;
-	}
-	// print_square(cub->plr->x, cub->plr->y, cub, 0x000fff);//отрисовываю персонажа
-	// print_ray(cub);
-	ft_cast_rays(cub);
-}
-
-// static void	print_ray(t_all *cub)
-// {
-// 	t_plr	ray = *cub->plr; // задаем координаты луча равные координатам игрока
-
-// 	while (cub->map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] != '1')
-// 		// && cub->map[(int)ceil(ray.y / SCALE)][(int)ceil(ray.x / SCALE)] != '1')
-// 	{
-// 		// printf("ALLOO\n");
-// 		ray.x += cos(ray.dir);
-// 		ray.y += sin(ray.dir);
-// 		printf("ray.x = %f\nray.y = %f", ray.x, ray.y);
-// 		my_mlx_pixel_put(cub, ray.x, ray.y, 0x990099);
-// 	}
-// }
-
-static void	ft_cast_rays(t_all *cub)
+static void	render_cub(t_all *cub)//функция получения длины векторов
 {
 	t_plr	ray = *cub->plr; // задаем координаты и направление луча равные координатам игрока
-	
+	size_t	x;
+	float	len_ray;
+
+	print_floor_and_ceil(cub);
 	ray.start = ray.dir - M_PI_4; // начало веера лучей
 	ray.end = ray.dir + M_PI_4; // край веера лучей
-  	while (ray.start <= ray.end)
+	x = 0;
+  	while (x < WIDTH)
 	{
 		ray.x = cub->plr->x; // каждый раз возвращаемся в точку начала
 		ray.y = cub->plr->y;
@@ -76,26 +32,46 @@ static void	ft_cast_rays(t_all *cub)
 		{
 			ray.x += cos(ray.start);
 			ray.y += sin(ray.start);
-			my_mlx_pixel_put(cub, ray.x, ray.y, 0x990099);
 		}
-		ray.start += M_PI_2 / 50;
+		len_ray = sqrtf(pow(ray.x - cub->plr->x, 2) + pow(ray.y - cub->plr->y, 2));
+		print_column(cub, x, fabs(cos(ray.start)), len_ray);
+		ray.start += M_PI_2 / 1000;
+		x++;
+	}
+	minimap(cub);
+}
+
+static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray)
+{
+	size_t	y;
+	size_t	start_y;
+	size_t	len_column;
+	
+	len_column = (HEIGHT * (1 - len_ray / HEIGHT));// / cosin_ray;
+	start_y = (HEIGHT - len_column) / 2;
+	y = start_y;
+	while (y < HEIGHT - start_y)
+	{
+		my_mlx_pixel_put(cub, x, y, 0x990099);
+		y++;
 	}
 }
 
-static void	print_square(size_t x, size_t y, t_all *cub, u_int32_t color)
+static void print_floor_and_ceil(t_all *cub)
 {
-	size_t	i;
-	size_t	j;
+	size_t	x;
+	size_t	y;
 
-	i = y;
-	while (i < (y + SCALE))
+	x = -1;
+	while (++x < WIDTH)
 	{
-		j = x;
-		while (j < (x + SCALE))
+		y = -1;
+		while (++y < HEIGHT)
 		{
-			my_mlx_pixel_put(cub, j, i, color);
-			j++;
+			if (y < HEIGHT / 2)
+				my_mlx_pixel_put(cub, x, y, cub->win->ceiling);
+			else
+				my_mlx_pixel_put(cub, x, y, cub->win->floor);
 		}
-		i++;
 	}
 }
