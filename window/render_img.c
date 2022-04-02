@@ -2,7 +2,9 @@
 
 static void	render_cub(t_all *cub);
 
-static void	paint_black(t_all *cub);
+static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray);
+
+static void print_floor_and_ceil(t_all *cub);
 
 int	image_cub(t_all *cub)
 {
@@ -11,48 +13,65 @@ int	image_cub(t_all *cub)
 	return (0);
 }
 
-static void	print_square(size_t x, size_t y, t_all *cub, u_int32_t color)
-{
-	size_t	i;
-	size_t	j;
 
-	i = y;
-	while (i < (y + SCALE))
+static void	render_cub(t_all *cub)//функция получения длины векторов
+{
+	t_plr	ray = *cub->plr; // задаем координаты и направление луча равные координатам игрока
+	size_t	x;
+	float	len_ray;
+
+	print_floor_and_ceil(cub);
+	ray.start = ray.dir - M_PI_4; // начало веера лучей
+	ray.end = ray.dir + M_PI_4; // край веера лучей
+	x = 0;
+  	while (x < WIDTH)
 	{
-		j = x;
-		while (j < (x + SCALE))
+		ray.x = cub->plr->x; // каждый раз возвращаемся в точку начала
+		ray.y = cub->plr->y;
+		while (cub->map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] != '1')
 		{
-			my_mlx_pixel_put(cub, j, i, color);
-			j++;
+			ray.x += cos(ray.start);
+			ray.y += sin(ray.start);
 		}
-		i++;
+		len_ray = sqrtf(pow(ray.x - cub->plr->x, 2) + pow(ray.y - cub->plr->y, 2));
+		print_column(cub, x, fabs(cos(ray.start)), len_ray);
+		ray.start += M_PI_2 / 1000;
+		x++;
+	}
+	minimap(cub);
+}
+
+static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray)
+{
+	size_t	y;
+	size_t	start_y;
+	size_t	len_column;
+	
+	len_column = (HEIGHT * (1 - len_ray / HEIGHT));// / cosin_ray;
+	start_y = (HEIGHT - len_column) / 2;
+	y = start_y;
+	while (y < HEIGHT - start_y)
+	{
+		my_mlx_pixel_put(cub, x, y, 0x990099);
+		y++;
 	}
 }
 
-static void	render_cub(t_all *cub)
+static void print_floor_and_ceil(t_all *cub)
 {
-	size_t	i;
-	size_t	j;
 	size_t	x;
 	size_t	y;
 
-	i = 0;
-	y = 0;
-	while (cub->map[i])
+	x = -1;
+	while (++x < WIDTH)
 	{
-		j = 0;
-		x = 0;
-		while (cub->map[i][j])
+		y = -1;
+		while (++y < HEIGHT)
 		{
-			if (cub->map[i][j] == '1')
-				print_square(x, y, cub, 0xffffff);//отрисовываю карту
+			if (y < HEIGHT / 2)
+				my_mlx_pixel_put(cub, x, y, cub->win->ceiling);
 			else
-				print_square(x, y, cub, 0x000000);
-			j++;
-			x += SCALE;
+				my_mlx_pixel_put(cub, x, y, cub->win->floor);
 		}
-		y += SCALE;
-		i++;
 	}
-	print_square(cub->plr->x, cub->plr->y, cub, 0x000fff);//отрисовываю персонажа
 }

@@ -2,7 +2,7 @@ NAME = cub3D
 PARSER = get_map.c color.c rgb_to_int.c x_y.c
 CLEAN = clean.c
 ERROR = error.c
-WINDOW = window.c render_img.c pixel_put.c key_hook.c
+WINDOW = window.c render_img.c pixel_put.c key_hook.c minimap.c
 TOOLS = tools.c
 GNL = get_next_line_bonus.c get_next_line_utils_bonus.c
 SRCS =	$(addprefix gnl/, $(GNL)) \
@@ -18,7 +18,7 @@ CC = gcc -g -O3#-fsanitize=address
 # $(NAME): $(OBJS) cub.h Makefile
 # 		make bonus -C ./libft
 # 		make -C ./libft
-# 		make -C ./minilibx-linux
+# 		make -C ./mlx
 # 		$(CC) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -L ./libft -lft -o $(NAME)
 
 $(NAME): $(OBJS) cub.h Makefile
