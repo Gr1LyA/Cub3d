@@ -12,7 +12,7 @@ int	image_cub(t_all *cub)
 	// int		img_width;
 	// int		img_height;
 	render_cub(cub);
-	// minimap(cub);
+	minimap(cub);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img, 0, 0);
 	// img = mlx_xpm_file_to_image(cub->win->mlx, cub->win->north, &img_width, &img_height);
 	// mlx_put_image_to_window(cub->win->mlx, cub->win->win, img, 0, 0);
