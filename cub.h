@@ -4,18 +4,18 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 
-# define SCALE 20 // условный размер каждого квадратика в карте
-# define STEP 10
+# define SCALE 1 // условный размер каждого квадратика в карте
+# define STEP 0.1
 
-# define ESC 65307
-# define W 119
-# define A 97
-# define S 115
-# define D 100
-# define UP 65362
-# define DOWN 65364
-# define LEFT 65361
-# define RIGHT 65363
+# define ESC 65307//65307
+# define W 119//119
+# define A 97//97
+# define S 115//115
+# define D 100//100
+# define UP 65362//65362
+# define DOWN 65364//65364
+# define LEFT 65361//65361
+# define RIGHT 65363//65363
 
 # include "./gnl/get_next_line_bonus.h"
 # include "./libft/libft.h"
@@ -42,6 +42,10 @@ typedef struct	s_win //структура для окна
 	char		*south;
 	char		*west;
 	char		*east;
+	void		*no;//добавить проверку на открытие текстур
+	void		*so;
+	void		*we;
+	void		*ea;
 	u_int32_t	floor;//добавить проверку <255 && >0
 	u_int32_t	ceiling;
 }				  t_win;
@@ -96,6 +100,7 @@ int		error_mess(char *error);
 void	my_mlx_pixel_put(t_all *cub, int x, int y, int color);
 int		image_cub(t_all *cub);
 void	minimap(t_all *cub);
+void	set_texture(t_all *cub);
 
 //func for keyhook
 
