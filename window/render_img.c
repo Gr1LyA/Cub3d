@@ -8,8 +8,14 @@ static void print_floor_and_ceil(t_all *cub);
 
 int	image_cub(t_all *cub)
 {
+	// void 	*img;
+	// int		img_width;
+	// int		img_height;
 	render_cub(cub);
+	minimap(cub);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img, 0, 0);
+	// img = mlx_xpm_file_to_image(cub->win->mlx, "./texture/brick.xpm", &img_width, &img_height);
+	// mlx_put_image_to_window(cub->win->mlx, cub->win->win, img, 0, 0);
 	return (0);
 }
 
@@ -21,8 +27,8 @@ static void	render_cub(t_all *cub)//функция получения длины
 	float	len_ray;
 
 	print_floor_and_ceil(cub);
-	ray.start = ray.dir - M_PI_4; // начало веера лучей
-	ray.end = ray.dir + M_PI_4; // край веера лучей
+	ray.start = ray.dir - ((M_PI_4) - 0.33); // начало веера лучей
+	ray.end = ray.dir + ((M_PI_4) - 0.33); // край веера лучей
 	x = 0;
   	while (x < WIDTH)
 	{
@@ -30,27 +36,25 @@ static void	render_cub(t_all *cub)//функция получения длины
 		ray.y = cub->plr->y;
 		while (cub->map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] != '1')
 		{
-			ray.x += (cos(ray.start) / SCALE);
-			ray.y += (sin(ray.start) / SCALE);
+			ray.x += 0.02 * (cos(ray.start));
+			ray.y += 0.02 * (sin(ray.start));
 		}
 		len_ray = sqrtf(pow(ray.x - cub->plr->x, 2) + pow(ray.y - cub->plr->y, 2));
 		print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray);
-		ray.start += M_PI_2 / 1000;
+		ray.start += (((M_PI_4) - 0.33) * 2) / 1000;
 		x++;
 	}
-	minimap(cub);
 }
 
 static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray)
 {
-	size_t	y;
-	size_t	start_y;
+	float	y;
+	float	start_y;
 	float	len_column;
 
 	if (len_ray > HEIGHT)
 		return ;
-	// len_column = (((HEIGHT / len_ray)) / 1) * 15;
-	len_column = (((HEIGHT / len_ray)) * 15 / cosin_ray);
+	len_column = (((HEIGHT / len_ray)) * 17 / cosin_ray);
 	if (len_column > HEIGHT)
 		start_y = 0;
 	else

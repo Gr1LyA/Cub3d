@@ -36,8 +36,8 @@ static void	ft_cast_rays(t_all *cub)
 {
 	t_plr	ray = *cub->plr; // задаем координаты и направление луча равные координатам игрока
 
-	ray.start = ray.dir - M_PI_4; // начало веера лучей
-	ray.end = ray.dir + M_PI_4; // край веера лучей
+	ray.start = ray.dir - ((M_PI_4) - 0.33); // начало веера лучей
+	ray.end = ray.dir + ((M_PI_4) - 0.33); // край веера лучей
   	while (ray.start <= ray.end)
 	{
 		ray.x = cub->plr->x; // каждый раз возвращаемся в точку начала
@@ -49,7 +49,7 @@ static void	ft_cast_rays(t_all *cub)
 			if (cub->map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] != '1')
 				my_mlx_pixel_put(cub, ray.x, ray.y, 0x990099);
 		}
-		ray.start += M_PI_2 / 1000;
+		ray.start += (((M_PI_4) - 0.33) * 2) / 1000;
 	}
 }
 

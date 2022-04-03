@@ -5,7 +5,7 @@
 # define HEIGHT 1000
 
 # define SCALE 20 // условный размер каждого квадратика в карте
-# define STEP 10
+# define STEP 3
 
 # define ESC 53//65307
 # define W 13//119
