@@ -4,8 +4,8 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 
-# define SCALE 20 // условный размер каждого квадратика в карте
-# define STEP 3
+# define SCALE 1 // условный размер каждого квадратика в карте
+# define STEP 0.1
 
 # define ESC 53//65307
 # define W 13//119
