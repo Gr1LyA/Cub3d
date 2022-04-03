@@ -49,9 +49,12 @@ static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray)
 
 	if (len_ray > HEIGHT)
 		return ;
-	// len_column = (((HEIGHT / len_ray)) / 1) * 10;
-	len_column = (((HEIGHT / len_ray)) * 20 / cosin_ray);
-	start_y = (HEIGHT - len_column) / 2;
+	// len_column = (((HEIGHT / len_ray)) / 1) * 15;
+	len_column = (((HEIGHT / len_ray)) * 15 / cosin_ray);
+	if (len_column > HEIGHT)
+		start_y = 0;
+	else
+		start_y = (HEIGHT - len_column) / 2;
 	y = start_y;
 	while (y < HEIGHT - start_y)
 	{
