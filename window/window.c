@@ -9,6 +9,7 @@ void	init_window(t_all *cub)
 	cub->win->img = mlx_new_image(cub->win->mlx, WIDTH, HEIGHT);
 	cub->win->addr = mlx_get_data_addr(cub->win->img, &cub->win->bpp
 		, &cub->win->len, &cub->win->endian);
+	set_texture(cub);
 	image_cub(cub);
 	mlx_loop(cub->win->mlx);
 }

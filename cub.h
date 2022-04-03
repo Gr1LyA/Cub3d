@@ -42,6 +42,10 @@ typedef struct	s_win //структура для окна
 	char		*south;
 	char		*west;
 	char		*east;
+	void		*no;//добавить проверку на открытие текстур
+	void		*so;
+	void		*we;
+	void		*ea;
 	u_int32_t	floor;//добавить проверку <255 && >0
 	u_int32_t	ceiling;
 }				  t_win;
@@ -96,6 +100,7 @@ int		error_mess(char *error);
 void	my_mlx_pixel_put(t_all *cub, int x, int y, int color);
 int		image_cub(t_all *cub);
 void	minimap(t_all *cub);
+void	set_texture(t_all *cub);
 
 //func for keyhook
 
