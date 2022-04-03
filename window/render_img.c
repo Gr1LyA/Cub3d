@@ -28,13 +28,13 @@ static void	render_cub(t_all *cub)//функция получения длины
 	{
 		ray.x = cub->plr->x; // каждый раз возвращаемся в точку начала
 		ray.y = cub->plr->y;
-		while (cub->map[(int)(ray.y / SCALE)][(int)(ray.x / SCALE)] != '1')
+		while (cub->map[(int)round(ray.y / SCALE)][(int)round(ray.x / SCALE)] != '1')
 		{
 			ray.x += cos(ray.start);
 			ray.y += sin(ray.start);
 		}
 		len_ray = sqrtf(pow(ray.x - cub->plr->x, 2) + pow(ray.y - cub->plr->y, 2));
-		print_column(cub, x, fabs(cos(ray.start)), len_ray);
+		print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray);
 		ray.start += M_PI_2 / 1000;
 		x++;
 	}
@@ -45,9 +45,12 @@ static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray)
 {
 	size_t	y;
 	size_t	start_y;
-	size_t	len_column;
-	
-	len_column = (HEIGHT * (1 - len_ray / HEIGHT));// / cosin_ray;
+	float	len_column;
+
+	if (len_ray > HEIGHT)
+		return ;
+	// len_column = (((HEIGHT / len_ray)) / 1) * 10;
+	len_column = (((HEIGHT / len_ray)) / cosin_ray) * 10;
 	start_y = (HEIGHT - len_column) / 2;
 	y = start_y;
 	while (y < HEIGHT - start_y)
