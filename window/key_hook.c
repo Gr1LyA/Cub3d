@@ -30,22 +30,30 @@ static void key_plr(int key, t_all *cub)
 	if (key == W)
 	{
 		// if (cub->map[(int)((cub->plr->y - STEP) / SCALE)][(int)(cub->plr->x / SCALE)] != '1')
-			cub->plr->y -= STEP;
+			// cub->plr->y -= STEP;
+		cub->plr->x += STEP * cos(cub->plr->dir);
+		cub->plr->y += STEP * sin(cub->plr->dir);
 	}
 	if (key == A)
 	{
 		// if (cub->map[(int)((cub->plr->y) / SCALE)][(int)((cub->plr->x  - STEP)/ SCALE)] != '1')
-			cub->plr->x -= STEP;
+			// cub->plr->x -= STEP;
+		cub->plr->x -= STEP * cos(cub->plr->dir + (M_PI / 2));
+		cub->plr->y -= STEP * sin(cub->plr->dir + (M_PI / 2));
 	}
 	if (key == S)
 	{
 		// if (cub->map[(int)((cub->plr->y + STEP) / SCALE)][(int)(cub->plr->x / SCALE)] != '1')
-			cub->plr->y += STEP;
+			// cub->plr->y += STEP;
+		cub->plr->x -= STEP * cos(cub->plr->dir);
+		cub->plr->y -= STEP * sin(cub->plr->dir);
 	}
 	if (key == D)
 	{
+		cub->plr->x -= STEP * cos(cub->plr->dir - (M_PI / 2));
+		cub->plr->y -= STEP * sin(cub->plr->dir - (M_PI / 2));
 		// if (cub->map[(int)((cub->plr->y) / SCALE)][(int)((cub->plr->x  + STEP)/ SCALE)] != '1')
-			cub->plr->x += STEP;
+			// cub->plr->x += STEP;
 	}
 }
 
