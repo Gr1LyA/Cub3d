@@ -78,6 +78,7 @@ typedef struct	s_all // структура для всего вместе
 //function for get map
 
 void		take_map(char *name, t_all *cub);
+void		check_map(char **map);
 void		color(char *str, u_int32_t *color);
 u_int32_t	convert_to_decimal(char **splt);
 void		x_y_plr(t_all *cub);

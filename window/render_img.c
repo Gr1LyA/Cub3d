@@ -15,7 +15,7 @@ int	image_cub(t_all *cub)
 	minimap(cub);
 	mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->img, 0, 0);
 	// img = mlx_xpm_file_to_image(cub->win->mlx, cub->win->north, &img_width, &img_height);
-	// mlx_put_image_to_window(cub->win->mlx, cub->win->win, img, 0, 0);
+	// mlx_put_image_to_window(cub->win->mlx, cub->win->win, cub->win->no, 0, 0);
 	return (0);
 }
 
@@ -41,7 +41,7 @@ static void	render_cub(t_all *cub)//функция получения длины
 		}
 		len_ray = sqrtf(pow(ray.x - cub->plr->x, 2) + pow(ray.y - cub->plr->y, 2));
 		print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray);
-		ray.start += ((M_PI / 7) * 2) / 1000;
+		ray.start += ((M_PI / 7) * 2) / WIDTH;
 		x++;
 	}
 }

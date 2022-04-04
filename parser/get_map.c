@@ -93,19 +93,25 @@ void	take_map(char *name, t_all *cub)
 {
 	int		fd;
 	char	*line;
-	t_list	*head = NULL;
+	t_list	*head;
+	int		i;
 
+	head = NULL;
 	fd = open(name, O_RDONLY);
 	if (fd == -1)
 		exit (error_mess("file"));
+		i = 0;
 	while (get_next_line(fd, &line))
 	{
 		if (!line)
 			exit (EXIT_FAILURE);
-		if (!ft_strncmp("", line, 1))
+		if (!ft_strncmp("", line, 1) && i < 6)
 			free(line);
 		else
+		{
 			ft_lstadd_back(&head, ft_lstnew(line));
+			i++;
+		}
 	}
 	if (!line)
 			exit (EXIT_FAILURE);
