@@ -9,7 +9,7 @@ static void print_floor_and_ceil(t_all *cub);
 
 // static int	which_side(t_plr ray, t_plr plr, float pre_last_x, float pre_last_y);
 
-static int	which_side(t_plr ray, t_plr plr);
+static int	which_side(t_plr ray, t_plr plr, float *st_wall);
 
 int	image_cub(t_all *cub)
 {
