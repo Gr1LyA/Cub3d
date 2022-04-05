@@ -1,8 +1,8 @@
 #ifndef CUB_H
 # define CUB_H
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1024
+# define HEIGHT 1024
 
 # define SCALE 1 // условный размер каждого квадратика в карте
 # define STEP 0.1

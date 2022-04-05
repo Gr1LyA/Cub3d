@@ -31,6 +31,7 @@ static void	render_cub(t_all *cub)//функция получения длины
 	size_t	x;
 	float	len_ray;
 	int		side;
+	float	st_wall;
 
 	print_floor_and_ceil(cub);
 	ray.start = ray.dir - (M_PI / 7); // начало веера лучей
@@ -46,7 +47,7 @@ static void	render_cub(t_all *cub)//функция получения длины
 			ray.y += 0.005 * (sin(ray.start));
 		}
 		len_ray = sqrtf(pow(ray.x - cub->plr->x, 2) + pow(ray.y - cub->plr->y, 2));
-		side = which_side(ray, *cub->plr);
+		side = which_side(ray, *cub->plr, &st_wall);
 		// side = which_side(ray, *cub->plr, ray.x - 0.005 * (cos(ray.start)), ray.y - 0.005 * (sin(ray.start)));//узнаем сторону горизонта
 		if (side == 0)
 			print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray, 0x009900 / 2);
@@ -69,18 +70,30 @@ static void	render_cub(t_all *cub)//функция получения длины
 // 	return (0);
 // }
 
-static int	which_side(t_plr ray, t_plr plr)
+static int	which_side(t_plr ray, t_plr plr, float *st_wall)
 {
 	// printf("y = %f\n",ray.y - floor(ray.y));
 	// printf("x = %f\n",ray.x - floor(ray.x));
-	if (ray.y - floor(ray.y) < 0.005)//so
+	if (ray.y - floor(ray.y) <= 0.005)//so
+	{
+		*st_wall = (ray.x - floor(ray.x) / SCALE); 
 		return (0);
+	}
 	else if (ray.y - floor(ray.y) < 1 && ray.y - floor(ray.y) > 0.995)//no
+	{
+		*st_wall = (ray.x - floor(ray.x)) / SCALE; 
 		return (1);
+	}
 	else if (ray.x - floor(ray.x) <= 0.005)//ea
+	{
+		*st_wall = (ray.y - floor(ray.y)) / SCALE; 
 		return (2);
+	}
 	else if (ray.x - floor(ray.x) < 1 && ray.x - floor(ray.x) >= 0.995)//we
+	{
+		*st_wall = (ray.y - floor(ray.y)) / SCALE;
 		return (3);
+	}
 	return (-1);
 }
 
