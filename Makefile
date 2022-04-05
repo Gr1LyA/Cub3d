@@ -1,5 +1,5 @@
 NAME = cub3D
-PARSER = get_map.c color.c rgb_to_int.c x_y.c
+PARSER = get_map.c color.c rgb_to_int.c x_y.c check_map.c
 CLEAN = clean.c
 ERROR = error.c
 WINDOW = window.c render_img.c pixel_put.c key_hook.c minimap.c set_texture.c
@@ -13,7 +13,7 @@ SRCS =	$(addprefix gnl/, $(GNL)) \
 		$(addprefix clean/, $(CLEAN)) \
 		main.c 
 OBJS = ${SRCS:.c=.o}
-CC = gcc -fsanitize=address
+CC = gcc #-fsanitize=address
 
 # $(NAME): $(OBJS) cub.h Makefile
 # 		make bonus -C ./libft

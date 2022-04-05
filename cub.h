@@ -1,8 +1,8 @@
 #ifndef CUB_H
 # define CUB_H
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 800
+# define HEIGHT 600
 
 # define SCALE 1 // условный размер каждого квадратика в карте
 # define STEP 0.1
@@ -81,6 +81,7 @@ void		take_map(char *name, t_all *cub);
 void		color(char *str, u_int32_t *color);
 u_int32_t	convert_to_decimal(char **splt);
 void		x_y_plr(t_all *cub);
+void		check_map(char **map);
 
 //functions for free allocate memmory
 
