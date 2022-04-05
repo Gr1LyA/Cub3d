@@ -1,77 +1,143 @@
 #include "../cub.h"
 
-static void	check_str(char **map, size_t i);
+static void	check_wall(char **map, size_t i, size_t j);
 
-static void	check_space_middle(char **map, size_t i, size_t *j);
+static void	check_space_first(char **map, size_t j);
 
-static void	check_space_first(char **map, size_t i, size_t *j);
+static void	check_space_last(char **map, size_t j);
 
-static void	check_space_last(char **map, size_t i, size_t *j);
+static void	check_space_middle(char **map, size_t j);
+
+static int	check_char(char s);
+
+static void check_null(char **map);
 
 void	check_map(char **map)
 {
 	size_t	i;
+	size_t	j;
+
+	i = -1;
+	while (map[++i])//первая и последняя строка могут быть единицы и пробелы
+	{
+		j = -1;
+		while (map[i][++j])
+		{
+			if (map[i][j] != ' ' && map[i][j] != '1' && map[i][j] != '0'
+				&& map[i][j] != 'W'  && map[i][j] != 'E' && map[i][j] != 'S'
+				&& map[i][j] != 'N')
+				exit (error_mess("map error"));
+		}
+	}
+	if (i < 2)
+		exit (error_mess("map error"));
+	check_space_first(map, 0);
+	j = 0;
+	while (++j < i - 1)
+		check_space_middle(map, j);//начинаю со второй строки
+	check_space_last(map, i - 1);
+	check_null(map);
+}
+
+static void check_null(char **map)
+{
+	size_t	i;
+	size_t	j;
 
 	i = -1;
 	while (map[++i])
-		check_str(map, i);
-}
-
-static void	check_str(char **map, size_t i)
-{
-	size_t	j;
-	size_t	start_space;
-	size_t	end_space;
-
-	j = -1;
-	while (map[i][++j])
 	{
-		if (map[i][j] != '0' && map[i][j] != '1'
-			&& map[i][j] != 'N' && map[i][j] != 'S'
-			&& map[i][j] != 'E' && map[i][j] != 'W'
-			&& map[i][j] != ' ')
-			exit (error_mess("error map"));
-		if (map[i][j] == ' ' && i == 0)
-			check_space_first(map, i, &j);
-		else if (map[i][j] == ' ' && map[i + 1] == NULL)
-			check_space_last(map, i, &j);
+		j = -1;
+		while (map[i][++j])
+		{
+			if (check_char(map[i][j]) && j == 0)
+				exit (error_mess("map error"));
+			else if (check_char(map[i][j]))
+			{
+				if (map[i][j - 1] != '1')
+					exit (error_mess("map error"));
+				while (check_char(map[i][j]))
+					j++;
+				if (!map[i][j] || map[i][j] != '1')
+					exit (error_mess("map error"));
+			}
+		}
 	}
 }
 
-static void	check_space_first(char **map, size_t i, size_t *j)
+static int	check_char(char s)
 {
-	size_t	start_space;
-	size_t	end_space;
-	size_t	len_next_line;
-
-	start_space = *j;
-	end_space = start_space;
-	while (map[i][end_space] == ' ' && map[i][end_space] != '\0')
-		end_space++;
-	if (start_space != 0 && map[i][start_space - 1] != '1'
-		|| start_space != 0 && (map[i + 1][start_space - 1] != '1' && map[i + 1][start_space - 1] != ' '))
-		exit (error_mess("map error"));
-	if (map[i][end_space] != '1' && map[i][end_space] != '\0')
-		exit (error_mess("map error"));
-	//осталось проверить след строку
-	// len_next_line = ft_strlen(map[i + 1]);
-	// if
+	if (s == '0' || s == 'N' || s == 'S' || s == 'E'
+		|| s == 'W')
+		return (1);
+	return (0);
 }
 
-static void	check_space_last(char **map, size_t i, size_t *j)
+static void	check_space_first(char **map, size_t j)
 {
+	size_t	i;
+	size_t	st_sp;
+	size_t	en_sp;
 
+	i = 0;
+	while (map[j][i])
+	{
+		while (map[j][i] && map[j][i] != ' ')
+			i++;
+		if (!map[j][i])
+			return ;
+		st_sp = i;
+		en_sp = i;
+		while (map[j][en_sp] && map[j][en_sp] == ' ')
+			en_sp++;
+		i += (en_sp - st_sp);		
+		if (st_sp != 0)
+			st_sp -= 1;
+		if (map[j][en_sp])
+			en_sp += 1;
+		while (map[j + 1][st_sp] && st_sp < en_sp)
+		{
+			if (map[j + 1][st_sp] != ' ' && map[j + 1][st_sp] != '1')
+				exit (error_mess("map error"));
+			st_sp++;
+		}
+	}
 }
 
-static void	check_space_middle(char **map, size_t i, size_t *j)
+static void	check_space_last(char **map, size_t j)
 {
-	size_t	start_space;
-	size_t	end_space;
+	size_t	i;
+	size_t	st_sp;
+	size_t	en_sp;
+	printf("j = %zu\n", j);
 
-	start_space = *j;
-	end_space = start_space;
-	while (map[i][*j] == ' ')
-		end_space++;
-	if (map[i][end_space] != '1' && map[i][end_space] != '\0')
-		exit (error_mess("map error"));
+	i = 0;
+	while (map[j][i])
+	{
+		while (map[j][i] && map[j][i] != ' ')
+			i++;
+		if (!map[j][i])
+			return ;
+		st_sp = i;
+		en_sp = i;
+		while (map[j][en_sp] && map[j][en_sp] == ' ')
+			en_sp++;
+		i += (en_sp - st_sp);		
+		if (st_sp != 0)
+			st_sp -= 1;
+		if (map[j][en_sp])
+			en_sp += 1;
+		while (map[j - 1][st_sp] && st_sp < en_sp)
+		{
+			if (map[j - 1][st_sp] != ' ' && map[j - 1][st_sp] != '1')
+				exit (error_mess("map error"));
+			st_sp++;
+		}
+	}
+}
+
+static void	check_space_middle(char **map, size_t j)
+{
+	check_space_last(map, j);
+	check_space_first(map, j);
 }

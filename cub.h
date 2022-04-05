@@ -1,21 +1,21 @@
 #ifndef CUB_H
 # define CUB_H
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 800
+# define HEIGHT 600
 
 # define SCALE 1 // условный размер каждого квадратика в карте
 # define STEP 0.1
 
-# define ESC 53//65307
-# define W 13//119
-# define A 0//97
-# define S 1//115
-# define D 2//100
-# define UP 126//65362
-# define DOWN 125//65364
-# define LEFT 123//65361
-# define RIGHT 124//65363
+# define ESC 53
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define UP 126
+# define DOWN 125
+# define LEFT 123
+# define RIGHT 124
 
 # include "./gnl/get_next_line_bonus.h"
 # include "./libft/libft.h"
@@ -78,10 +78,10 @@ typedef struct	s_all // структура для всего вместе
 //function for get map
 
 void		take_map(char *name, t_all *cub);
-void		check_map(char **map);
 void		color(char *str, u_int32_t *color);
 u_int32_t	convert_to_decimal(char **splt);
 void		x_y_plr(t_all *cub);
+void		check_map(char **map);
 
 //functions for free allocate memmory
 

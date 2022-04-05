@@ -13,7 +13,7 @@ SRCS =	$(addprefix gnl/, $(GNL)) \
 		$(addprefix clean/, $(CLEAN)) \
 		main.c 
 OBJS = ${SRCS:.c=.o}
-CC = gcc -fsanitize=address
+CC = gcc #-fsanitize=address
 
 $(NAME): $(OBJS) cub.h Makefile
 		make bonus -C ./libft

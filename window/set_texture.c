@@ -8,7 +8,6 @@ void	set_texture(t_all *cub)
 	img = mlx_xpm_file_to_image(cub->win->mlx, cub->win->north, &tmp[0], &tmp[1]);
 	cub->win->no = (int *)mlx_get_data_addr(img,
 			&tmp[2], &tmp[3], &tmp[4]);
-			printf("width = %d\nheight = %d\n", tmp[0], tmp[1]);
 	img = mlx_xpm_file_to_image(cub->win->mlx, cub->win->south, &tmp[0], &tmp[1]);
 	cub->win->so = (int *)mlx_get_data_addr(img,
 			&tmp[2], &tmp[3], &tmp[4]);
