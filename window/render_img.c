@@ -3,7 +3,7 @@
 
 static void	render_cub(t_all *cub);
 
-static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray, u_int32_t color);
+static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray, int side, float st_wall);
 
 static void print_floor_and_ceil(t_all *cub);
 
@@ -48,15 +48,7 @@ static void	render_cub(t_all *cub)//функция получения длины
 		}
 		len_ray = sqrtf(pow(ray.x - cub->plr->x, 2) + pow(ray.y - cub->plr->y, 2));
 		side = which_side(ray, *cub->plr, &st_wall);
-		// side = which_side(ray, *cub->plr, ray.x - 0.005 * (cos(ray.start)), ray.y - 0.005 * (sin(ray.start)));//узнаем сторону горизонта
-		if (side == 0)
-			print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray, 0x009900 / 2);
-		else if (side == 1)
-			print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray, 0x990099);
-		else if (side == 2)
-			print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray, 0x123456);
-		else if (side == 3)
-			print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray, 0x654321);
+		print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray, side, st_wall);
 		ray.start += ((M_PI / 7) * 2) / WIDTH;
 		x++;
 	}
@@ -97,11 +89,12 @@ static int	which_side(t_plr ray, t_plr plr, float *st_wall)
 	return (-1);
 }
 
-static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray, u_int32_t color)
+static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray, int side, float st_wall)
 {
-	float	y;
-	float	start_y;
-	float	len_column;
+	int			y;
+	int			start_y;
+	float			len_column;
+	unsigned int	*tex;
 
 	len_column = (((HEIGHT / len_ray)) / cosin_ray);
 	if (len_column < 1)
@@ -113,7 +106,8 @@ static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray, u
 	y = start_y;
 	while (y < HEIGHT - start_y)
 	{
-		my_mlx_pixel_put(cub, x, y, color);
+		tex = &cub->win->no[(int)(64 * (y) / HEIGHT + 64 * (SCALE * st_wall))];
+		my_mlx_pixel_put(cub, x, y, *tex);
 		y++;
 	}
 }
