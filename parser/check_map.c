@@ -109,7 +109,7 @@ static void	check_space_last(char **map, size_t j)
 	size_t	i;
 	size_t	st_sp;
 	size_t	en_sp;
-	printf("j = %zu\n", j);
+	// printf("j = %zu\n", j);
 
 	i = 0;
 	while (map[j][i])

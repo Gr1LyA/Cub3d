@@ -31,23 +31,23 @@
 
 typedef struct	s_win //структура для окна
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
-	void		*addr;
-	int			len;
-	int			bpp;
-	int			endian;
-	char		*north;//добавить проверку на открытие текстур
-	char		*south;
-	char		*west;
-	char		*east;
-	void		*no;//добавить проверку на открытие текстур
-	void		*so;
-	void		*we;
-	void		*ea;
-	u_int32_t	floor;//добавить проверку <255 && >0
-	u_int32_t	ceiling;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	void			*addr;
+	int				len;
+	int				bpp;
+	int				endian;
+	char			*north;//добавить проверку на открытие текстур
+	char			*south;
+	char			*west;
+	char			*east;
+	unsigned int	*no;//добавить проверку на открытие текстур
+	unsigned int	*so;
+	unsigned int	*we;
+	unsigned int	*ea;
+	u_int32_t		floor;//добавить проверку <255 && >0
+	u_int32_t		ceiling;
 }				  t_win;
 
 typedef struct	s_point // структура для точки
