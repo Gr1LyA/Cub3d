@@ -1,9 +1,8 @@
 #include "../cub.h"
-#include <stddef.h>
 
 static void	render_cub(t_all *cub);
 
-static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray, int side, float st_wall);
+static void	print_column(t_all *cub, size_t x, float cosin_ray, t_ray ray);
 
 static void print_floor_and_ceil(t_all *cub);
 
@@ -11,7 +10,9 @@ static void print_floor_and_ceil(t_all *cub);
 
 static int	which_side(t_plr ray, t_plr plr, float *st_wall);
 
-static void	sub_print_column(t_all *cub, size_t x, float cosin_ray, float len_ray, int side, float st_wall, float len_column);
+static void	sub_print_column(t_all *cub, size_t x, float cosin_ray, float len_column, t_ray ray);
+
+unsigned int	*get_tex(int sum, t_ray ray, t_all cub);
 
 int	image_cub(t_all *cub)
 {
@@ -35,9 +36,10 @@ static void	render_cub(t_all *cub)//функция получения длины
 {
 	t_plr	ray = *cub->plr; // задаем координаты и направление луча равные координатам игрока
 	size_t	x;
-	float	len_ray;
-	int		side;
-	float	st_wall;
+	t_ray	ray_dat;
+	// float	len_ray;
+	// int		side;
+	// float	st_wall;
 
 	print_floor_and_ceil(cub);
 	ray.start = ray.dir - (M_PI / 7); // начало веера лучей
@@ -52,26 +54,16 @@ static void	render_cub(t_all *cub)//функция получения длины
 			ray.x += 0.005 * (cos(ray.start));
 			ray.y += 0.005 * (sin(ray.start));
 		}
-		len_ray = sqrtf(pow(ray.x - cub->plr->x, 2) + pow(ray.y - cub->plr->y, 2));
-		side = which_side(ray, *cub->plr, &st_wall);
-		print_column(cub, x, fabs(cos(ray.dir - ray.start)), len_ray, side, st_wall);
+		ray_dat.len_ray = sqrtf(pow(ray.x - cub->plr->x, 2) + pow(ray.y - cub->plr->y, 2));
+		ray_dat.side = which_side(ray, *cub->plr, &(ray_dat.st_wall));
+		print_column(cub, x, fabs(cos(ray.dir - ray.start)), ray_dat);
 		ray.start += ((M_PI / 7) * 2) / WIDTH;
 		x++;
 	}
 }
 
-// static int	which_side(t_plr ray, t_plr plr, float pre_last_x, float pre_last_y)
-// {
-// 	if (ray.y - floor(ray.y) < ray.x - floor(ray.x))
-// 		// && ) //so and no
-// 		return (1);
-// 	return (0);
-// }
-
 static int	which_side(t_plr ray, t_plr plr, float *st_wall)
 {
-	// printf("y = %f\n",ray.y - floor(ray.y));
-	// printf("x = %f\n",ray.x - floor(ray.x));
 	if (ray.y - floor(ray.y) <= 0.005)//so
 	{
 		*st_wall = (ray.x - floor(ray.x) / SCALE); 
@@ -95,31 +87,45 @@ static int	which_side(t_plr ray, t_plr plr, float *st_wall)
 	return (-1);
 }
 
-static void	print_column(t_all *cub, size_t x, float cosin_ray, float len_ray, int side, float st_wall)
+static void	print_column(t_all *cub, size_t x, float cosin_ray, t_ray ray)
 {
-	int			y;
-	int			start_y;
+	int				y;
+	int				start_y;
 	float			len_column;
 	unsigned int	*tex;
+	int				sum;
 
-	len_column = ((((float)HEIGHT / len_ray)) / cosin_ray);
+	len_column = ((((float)HEIGHT / ray.len_ray)) / cosin_ray);
 	if (len_column < 1)
 		return ;
 	if (len_column > HEIGHT)
-		return (sub_print_column(cub, x, cosin_ray, len_ray, side, st_wall, len_column));
+		return (sub_print_column(cub, x, cosin_ray, len_column, ray));
 	else
 		start_y = (HEIGHT - len_column) / 2;
 	y = start_y;
 	while (y < HEIGHT - start_y)
 	{
-		// my_mlx_pixel_put(cub, x, y, cub->win->ea[(int)(64 * floor((float)y / ((float)HEIGHT / 64)) + (float)x * 64. / WIDTH)]);
-		tex = &cub->win->no[(int)(64 * floor((float)(y - start_y) / ((float)len_column / 64)) + 64. * st_wall)];
+		sum = (int)(64 * floor((float)(y - start_y) / ((float)len_column / 64)) + 64. * ray.st_wall);
+		tex = get_tex(sum, ray, *cub);
 		my_mlx_pixel_put(cub, x, y, *tex);
 		y++;
 	}
 }
 
-static void	sub_print_column(t_all *cub, size_t x, float cosin_ray, float len_ray, int side, float st_wall, float len_column)
+unsigned int	*get_tex(int sum, t_ray ray, t_all cub)
+{
+	if (ray.side == 0)
+		return (&cub.win->so[(int)sum]);
+	else if (ray.side == 1)
+		return (&cub.win->no[(int)sum]);
+	else if (ray.side == 2)
+		return (&cub.win->ea[(int)sum]);
+	else if (ray.side == 3)
+		return (&cub.win->we[(int)sum]);
+	return (&cub.win->we[1]);
+}
+
+static void	sub_print_column(t_all *cub, size_t x, float cosin_ray, float len_column, t_ray ray)
 {
 	size_t	y;
 	size_t	pix_y;
@@ -129,7 +135,7 @@ static void	sub_print_column(t_all *cub, size_t x, float cosin_ray, float len_ra
 	pix_y = (len_column - HEIGHT) / 2;
 	while (++y < HEIGHT)
 	{
-		tex = &cub->win->no[(int)(64 * floor((float)(y + pix_y) / ((float)len_column / 64)) + 64. * st_wall)];
+		tex = &cub->win->no[(int)(64 * floor((float)(y + pix_y) / ((float)len_column / 64)) + 64. * ray.st_wall)];
 		my_mlx_pixel_put(cub, x, y, *tex);
 	}
 }

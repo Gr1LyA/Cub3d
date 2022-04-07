@@ -1,7 +1,7 @@
 NO ./texture/brick.xpm
-SO ./texture/brick.xpm
-WE ./texture/brick.xpm
-EA ./texture/brick.xpm
+SO ./texture/chest.xpm
+WE ./texture/hitler.xpm
+EA ./texture/wood.xpm
 
 F 220,100,15
 C 255,255,255

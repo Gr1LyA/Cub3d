@@ -49,7 +49,7 @@ static void	ft_cast_rays(t_all *cub)
 			if (cub->map[(int)(ray.y / 20)][(int)(ray.x / 20)] != '1')
 				my_mlx_pixel_put(cub, ray.x, ray.y, 0x990099);
 		}
-		ray.start += ((M_PI / 7) * 2) / 1000;
+		ray.start += ((M_PI / 7) * 2) / WIDTH;
 	}
 }
 

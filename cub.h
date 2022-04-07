@@ -65,6 +65,14 @@ typedef struct	s_plr //структура для игрока и луча
 	float		end;//правая сторона обзора
 }				  t_plr;
 
+typedef struct	s_ray
+{
+	float	len_ray;
+	// float	cosin_ray;
+	int		side;
+	float	st_wall;
+}				t_ray;
+
 typedef struct	s_all // структура для всего вместе
 {
 	t_win		*win;
