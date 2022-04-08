@@ -1,8 +1,9 @@
 #ifndef CUB_H
 # define CUB_H
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1240
+# define HEIGHT 1020
+# define PREC 0.01
 
 # define SCALE 1 // условный размер каждого квадратика в карте
 # define STEP 0.1
@@ -38,11 +39,11 @@ typedef struct	s_win //структура для окна
 	int				len;
 	int				bpp;
 	int				endian;
-	char			*north;//добавить проверку на открытие текстур
+	char			*north;
 	char			*south;
 	char			*west;
 	char			*east;
-	unsigned int	*no;//добавить проверку на открытие текстур
+	unsigned int	*no;
 	unsigned int	*so;
 	unsigned int	*we;
 	unsigned int	*ea;
@@ -78,6 +79,7 @@ typedef struct	s_all // структура для всего вместе
 	t_win		*win;
 	t_plr		*plr;
 	char		**map;//сделать проверку на валидность
+	void		*img[4];
 	// size_t		map_x;
 	// size_t		map_y;
 	// float			len_ray[WIDTH];
@@ -90,6 +92,9 @@ void		color(char *str, u_int32_t *color);
 u_int32_t	convert_to_decimal(char **splt);
 void		x_y_plr(t_all *cub);
 void		check_map(char **map);
+void		check_space_first(char **map, size_t j);
+void		check_space_last(char **map, size_t j);
+void		get_texture(t_list **head, t_all *cub);
 
 //functions for free allocate memmory
 
@@ -110,11 +115,12 @@ void	my_mlx_pixel_put(t_all *cub, int x, int y, int color);
 int		image_cub(t_all *cub);
 void	minimap(t_all *cub);
 void	set_texture(t_all *cub);
+void	print_column(t_all *cub, size_t x, float cosin_ray, t_ray ray);
 
 //func for keyhook
 
-int	close_win(int key);
-int	key_hook(int key, t_all *cub);
+int		close_win(int key, t_all *cub);
+int		key_hook(int key, t_all *cub);
 
 //supporting func
 
