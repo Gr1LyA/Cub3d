@@ -6,6 +6,8 @@ static int	check_char(char s);
 
 static void	check_null(char **map);
 
+static void	sub_check_null(char **map, size_t i, size_t j);
+
 void	check_map(char **map)
 {
 	size_t	i;
@@ -50,18 +52,24 @@ static void	check_null(char **map)
 				exit (error_mess("map error"));
 			else if (check_char(map[i][j]))
 			{
-				if (!map[i + 1] || j > ft_strlen(map[i + 1]) - 1
-					|| i == 0 || j > ft_strlen(map[i - 1]) - 1)
-					exit (error_mess("map error"));
+				sub_check_null(map, i, j);
 				if (map[i][j - 1] != '1')
 					exit (error_mess("map error"));
 				while (check_char(map[i][j]))
 					j++;
 				if (!map[i][j] || map[i][j] != '1')
 					exit (error_mess("map error"));
+				sub_check_null(map, i, j);
 			}
 		}
 	}
+}
+
+static void	sub_check_null(char **map, size_t i, size_t j)
+{
+	if (!map[i + 1] || j > ft_strlen(map[i + 1]) - 1
+		|| i == 0 || j > ft_strlen(map[i - 1]) - 1)
+		exit (error_mess("map error"));
 }
 
 static int	check_char(char s)

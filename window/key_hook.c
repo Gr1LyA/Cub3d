@@ -66,9 +66,8 @@ static void	kostyl_key_plr(int key, t_all *cub, float prev_x, float prev_y)
 	}
 }
 
-int	close_win(int key, t_all *cub)
+int	close_win(int key)
 {
 	(void)key;
-	free_all(cub);
 	exit (0);
 }

@@ -2,7 +2,7 @@ F 220,100,15
 C 255,255,255
 
 NO ./texture/5555.xpm
-SO ./texture/eagle.xpm
+SO ./texture/wood.xpm
 WE ./texture/hitler.xpm
 EA ./texture/eagle.xpm
 

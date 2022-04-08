@@ -28,7 +28,7 @@ void	x_y_plr(t_all *cub)
 		}
 	}
 	if (flag != 1)
-		exit (error_mess("error plr\n"));
+		exit (error_mess("error plr"));
 }
 
 static void	spawn(t_all *cub, size_t i, size_t j)

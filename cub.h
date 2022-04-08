@@ -115,7 +115,7 @@ void		print_column(t_all *cub, size_t x, float cosin_ray, t_ray ray);
 
 //func for keyhook
 
-int			close_win(int key, t_all *cub);
+int			close_win(int key);
 int			key_hook(int key, t_all *cub);
 
 //supporting func
