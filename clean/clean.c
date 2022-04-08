@@ -11,16 +11,16 @@ void	free_all(t_all *cub)
 {
 	free_map(cub);
 	mlx_destroy_image(cub->win->mlx, cub->win->img);
-	mlx_destroy_image(cub->win->mlx, cub->img[0]);
-	mlx_destroy_image(cub->win->mlx, cub->img[1]);
-	mlx_destroy_image(cub->win->mlx, cub->img[2]);
-	mlx_destroy_image(cub->win->mlx, cub->img[3]);
+	mlx_destroy_image(cub->win->mlx, cub->i[0]);
+	mlx_destroy_image(cub->win->mlx, cub->i[1]);
+	mlx_destroy_image(cub->win->mlx, cub->i[2]);
+	mlx_destroy_image(cub->win->mlx, cub->i[3]);
 	mlx_destroy_window(cub->win->mlx, cub->win->win);
 	mlx_destroy_display(cub->win->mlx);
-	free(cub->win->north);
-	free(cub->win->south);
-	free(cub->win->west);
-	free(cub->win->east);
+	free(cub->win->nor);
+	free(cub->win->sou);
+	free(cub->win->wes);
+	free(cub->win->eas);
 	free(cub->win);
 	free(cub->plr);
 }
